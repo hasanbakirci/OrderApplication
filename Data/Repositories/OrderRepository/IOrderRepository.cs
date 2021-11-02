@@ -10,5 +10,6 @@ namespace Data.Repositories.OrderRepository
     {
         Task<IEnumerable<Order>> GetByCustomerId(Guid id);
         Task<bool> ChangeStatus(Guid id, string status);
+        Task<bool> OrderIsExist(Guid id);
     }
 }

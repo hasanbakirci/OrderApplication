@@ -19,6 +19,7 @@ namespace Data.Repositories.CustomerRepository
 
         public async Task<Guid> Create(Customer entity)
         {
+            entity.CreatedAt = DateTime.Now;
             _context.customers.Add(entity);
             await _context.SaveChangesAsync();
             return entity.Id;
@@ -34,17 +35,21 @@ namespace Data.Repositories.CustomerRepository
 
         public async Task<IEnumerable<Customer>> Get()
         {
-            return await _context.customers.ToListAsync();
+            return await _context.customers.Include(i => i.Address).ToListAsync();
         }
 
         public async Task<Customer> Get(Guid id)
         {
-            return await _context.customers.FirstOrDefaultAsync(c => c.Id == id);
+            return await _context.customers.Include(i => i.Address).FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task<bool> Update(Customer entity)
         {
-            _context.customers.Update(entity);
+            var customer = await _context.customers.FirstOrDefaultAsync(c => c.Id == entity.Id);
+            customer.Name = entity.Name != default ? entity.Name : customer.Name;
+            customer.Email = entity.Email != default ? entity.Email : customer.Email;
+            customer.AddressId = entity.AddressId != default ? entity.AddressId : customer.AddressId;
+            customer.UpdatedAt = DateTime.Now;
             var result = await _context.SaveChangesAsync();
             return result == 1 ? true : false;
         }
