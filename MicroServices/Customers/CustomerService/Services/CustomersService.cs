@@ -40,9 +40,9 @@ namespace CustomerService.Services
             return response;
         }
 
-        public async Task<CustomerResponse> Get(Guid id)
+        public async Task<CustomerResponse> GetById(Guid id)
         {
-            var customer = await _customerRepository.Get(id);
+            var customer = await _customerRepository.GetById(id);
             var response = customer.ConvertToCustomerResponse(_mapper);
             return response;
         }

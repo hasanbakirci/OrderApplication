@@ -16,10 +16,10 @@ namespace OrderService.Mapping
             CreateMap<Order, OrderResponse>()
                     .ForMember(dest => dest.ProductResponse,
                                 opt => opt.MapFrom(src => 
-                                src.Product.ImageUrl+" , "+src.Product.Name))
+                                src.Product.ImageUrl+" , "+src.Product.Name+" , "+src.ProductId))
                     .ForMember(dest => dest.AddressResponse,
                                 opt => opt.MapFrom(src => 
-                                src.Address.AddressLine+" , "+src.Address.City+" , "+src.Address.CityCode+" , "+src.Address.Country));
+                                src.Address.AddressLine+" , "+src.Address.City+" , "+src.Address.CityCode+" , "+src.Address.Country+" , "+src.AddressId));
             CreateMap<CreateOrderRequest, Order>()
                     .ForMember(dest => dest.ProductId, 
                                 opt => opt.MapFrom(src => src.ProductId))

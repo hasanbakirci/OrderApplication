@@ -38,7 +38,7 @@ namespace Data.Repositories.CustomerRepository
             return await _context.customers.Include(i => i.Address).ToListAsync();
         }
 
-        public async Task<Customer> Get(Guid id)
+        public async Task<Customer> GetById(Guid id)
         {
             return await _context.customers.Include(i => i.Address).FirstOrDefaultAsync(c => c.Id == id);
         }

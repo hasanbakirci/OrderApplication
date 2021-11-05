@@ -45,9 +45,9 @@ namespace OrderService.Services
             return response;
         }
 
-        public async Task<OrderResponse> Get(Guid id)
+        public async Task<OrderResponse> GetById(Guid id)
         {
-            var order = await _orderRespository.Get(id);
+            var order = await _orderRespository.GetById(id);
             var response = order.ConvertToOrderResponse(_mapper);
             return response; 
         }

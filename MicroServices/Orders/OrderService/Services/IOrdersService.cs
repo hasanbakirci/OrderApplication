@@ -10,7 +10,7 @@ namespace OrderService.Services
     public interface IOrdersService
     {
         Task<IEnumerable<OrderResponse>> Get();
-        Task<OrderResponse> Get(Guid id);
+        Task<OrderResponse> GetById(Guid id);
         Task<Guid> Create(CreateOrderRequest request);
         Task<bool> Update(UpdateOrderRequest request);
         Task<bool> Delete(Guid id);

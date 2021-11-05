@@ -10,7 +10,7 @@ namespace CustomerService.Services
     public interface ICustomerService
     {
         Task<IEnumerable<CustomerResponse>> Get();
-        Task<CustomerResponse> Get(Guid id);
+        Task<CustomerResponse> GetById(Guid id);
         Task<Guid> Create(CreateCustomerRequest request);
         Task<bool> Update(UpdateCustomerRequest request);
         Task<bool> Delete(Guid id);

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CustomerService.Dtos.Requests;
+using CustomerService.Dtos.Responses;
 using CustomerService.Services;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CustomerApi.Controllers
@@ -28,7 +30,7 @@ namespace CustomerApi.Controllers
         public async Task<IActionResult> GetById(Guid id){
             var isValidate = await _customerService.Validate(id);
             if(isValidate){
-                var customer = await _customerService.Get(id);
+                var customer = await _customerService.GetById(id);
                 return Ok(customer); 
             }
             return NotFound("Id Not Found !"); 
@@ -47,23 +49,35 @@ namespace CustomerApi.Controllers
         }
         [HttpPut]
         public async Task<IActionResult> Update([FromBody] UpdateCustomerRequest request){
-            var isValidate = await _customerService.Validate(request.id);
-            if(isValidate){
-                if(ModelState.IsValid){
-                    var result = await _customerService.Update(request);
-                    return Ok(result); 
-                }
-                return BadRequest(ModelState);
+            var isExist = await _customerService.Validate(request.Id);
+            if(!isExist){
+                return NotFound("Id Not Found !");
             }
-            return NotFound("Id Not Found !");
+            try
+            {
+                UpdateCustomerRequestValidator validator = new UpdateCustomerRequestValidator();
+                validator.ValidateAndThrow(request);
+                var result = await _customerService.Update(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateCustomerRequest request){
-            if(ModelState.IsValid){
+            try
+            {
+                CreateCustomerRequestValidator validator = new CreateCustomerRequestValidator();
+                validator.ValidateAndThrow(request);
                 var result = await _customerService.Create(request);
-                return Ok(result);  
+                return Ok(result);
             }
-            return BadRequest(ModelState);
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

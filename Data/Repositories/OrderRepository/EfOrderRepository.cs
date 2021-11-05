@@ -49,7 +49,7 @@ namespace Data.Repositories.OrderRepository
                                         .ToListAsync();
         }
 
-        public async Task<Order> Get(Guid id)
+        public async Task<Order> GetById(Guid id)
         {
             return await _context.orders.Include(a => a.Address)
                                         .Include(p => p.Product)

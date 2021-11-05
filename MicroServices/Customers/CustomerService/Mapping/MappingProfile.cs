@@ -16,7 +16,7 @@ namespace CustomerService.Mapping
             CreateMap<Customer, CustomerResponse>().ForMember(dest => dest.AddressResponse, opt => opt.MapFrom(src => 
                         src.Address.AddressLine+" , "+src.Address.City+" , "+src.Address.CityCode+" , "+src.Address.Country
                     ));
-            CreateMap<CreateCustomerRequest, Customer>().ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.AddressId));
+            CreateMap<CreateCustomerRequest, Customer>().ForMember(dest => dest.AddressId, opt => opt.MapFrom(src => src.AddressId));
             CreateMap<UpdateCustomerRequest, Customer>();
             
         }
