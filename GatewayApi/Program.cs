@@ -18,9 +18,13 @@ namespace GatewayApi
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+            .ConfigureAppConfiguration((hosting, config) =>
+            {
+                config.AddJsonFile("ocelot.json",false,true);
+            })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.UseUrls("http://localhost:5080").UseStartup<Startup>();
                 });
     }
 }

@@ -1,0 +1,57 @@
+{
+    "Routes": [
+      {
+        "DownstreamPathTemplate": "/api/customers",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "localhost",
+            "Port": 5010
+          }
+        ],
+        "UpstreamPathTemplate": "/api-customers",
+        "UpstreamHttpMethod": [ "POST", "PUT", "GET"]
+  
+      },
+      {
+        "DownstreamPathTemplate": "/api/customers/{everything}",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "localhost",
+            "Port": 5010
+          }
+        ],
+        "UpstreamPathTemplate": "/api-customers/{everything}",
+        "UpstreamHttpMethod": [ "POST", "PUT", "GET","DELETE"]
+  
+      },
+      {
+        "DownstreamPathTemplate": "/api/orders",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "localhost",
+            "Port": 5020
+          }
+        ],
+        "UpstreamPathTemplate": "/api-orders",
+        "UpstreamHttpMethod": [ "POST", "PUT", "GET"]
+      },
+      {
+        "DownstreamPathTemplate": "/api/orders/{everything}",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "localhost",
+            "Port": 5020
+          }
+        ],
+        "UpstreamPathTemplate": "/api-orders/{everything}",
+        "UpstreamHttpMethod": [ "POST", "PUT", "GET","DELETE"]
+      }
+    ],
+    "GlobalConfiguration": {
+      "BaseUrl": "http://localhost:5080"
+    }
+  }
